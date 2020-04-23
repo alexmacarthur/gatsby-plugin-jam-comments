@@ -1,34 +1,35 @@
 {
-    "name": "gatsby-plugin-jam-comments",
-    "version": "0.1.0",
-    "description": "The Gatsby plugin for Jam Comments.",
-    "main": "index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "precommit": "pretty-quick --staged",
-        "prettier": "prettier --write \"**/*.{md,js}\""
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/alexmacarthur/gatsby-plugin-jam-comments.git"
-    },
-    "keywords": [
-        "gatsby",
-        "gatsby-plugin",
-        "comments",
-        "jamstack"
-    ],
-    "author": "Alex MacArthur <alex@macarthur.me> (https://macarthur.me)",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/alexmacarthur/gatsby-plugin-jam-comments/issues"
-    },
-    "homepage": "https://github.com/alexmacarthur/gatsby-plugin-jam-comments#readme",
-    "dependencies": {
-    },
-    "devDependencies": {
-        "husky": "^2.3.0",
-        "prettier": "^1.17.1",
-        "pretty-quick": "^1.11.0"
-    }
+  "name": "gatsby-plugin-jam-comments",
+  "version": "0.1.0",
+  "description": "The Gatsby plugin for Jam Comments.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "precommit": "pretty-quick --staged",
+    "prettier": "prettier --write \"**/*.{md,js}\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexmacarthur/gatsby-plugin-jam-comments.git"
+  },
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "comments",
+    "jamstack"
+  ],
+  "author": "Alex MacArthur <alex@macarthur.me> (https://macarthur.me)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alexmacarthur/gatsby-plugin-jam-comments/issues"
+  },
+  "homepage": "https://github.com/alexmacarthur/gatsby-plugin-jam-comments#readme",
+  "dependencies": {
+    "graphql-request": "^1.8.2"
+  },
+  "devDependencies": {
+    "husky": "^2.3.0",
+    "prettier": "^1.17.1",
+    "pretty-quick": "^1.11.0"
+  }
 }

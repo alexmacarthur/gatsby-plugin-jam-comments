@@ -1,75 +1,69 @@
-import React, {useRef} from 'react';
-import styles from './styles.module.css';
+import React, { useRef } from "react"
+import styles from "./styles.module.css"
+import { request, GraphQLClient } from "graphql-request"
+
+const graphQLClient = new GraphQLClient("http://localhost:4000/graphql", {
+  headers: {
+    "Content-Type": "application/json",
+    // 'x-api-key': process.env.GATSBY_JAM_COMMENTS_API_KEY,
+    "x-api-key": "7T0CRJM-0N34CT8-MQEX3CP-JHGQ6R2",
+    "x-domain": "mysitename.com"
+  }
+})
 
 export default () => {
-    const formRef = useRef(null);
+  const formRef = useRef(null)
 
-    const submitComment = async (e) => {
-        e.preventDefault(); 
-        let withValues = [...formRef.current.elements].filter(el => {
-            return !!el.value;
-        });
+  const submitComment = async e => {
+    e.preventDefault()
 
-        let formData = withValues.map(input => {
-            return {
-                name: input.name,
-                value: input.value
-            }
-        });
+    let mutationParams = [...formRef.current.elements].reduce((obj, input) => {
+      obj[input.name] = input.value
+      return obj
+    }, {})
 
-        let mutationParams = withValues.reduce((totalString, input, index) => {
-            let string = totalString + `${input.name}: "${input.value}"`;
-            return index + 1 < withValues.length ? string + ', ' : string;
-        }, "");
-
-        console.log(mutationParams);
-
-        console.log(process.env.GATSBY_JAM_COMMENTS_API_KEY);
-
-        const response = await fetch('http://localhost:4000/graphql', {
-            method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json',
-                // 'x-api-key': process.env.GATSBY_JAM_COMMENTS_API_KEY,
-                'x-api-key': "7T0CRJM-0N34CT8-MQEX3CP-JHGQ6R2",
-                'x-domain': 'mysitename.com'
-            },
-            body: JSON.stringify({ query: `
-                mutation {
-                    createComment(${mutationParams}) {
+    const query = `
+                mutation CreateComment($name: String!, $content: String!, $twitterHandle: String, $emailAddress: String){
+                    createComment(name: $name, content: $content, twitterHandle: $twitterHandle, emailAddress: $emailAddress) {
                         createdAt
                         name
                         twitterHandle
                         emailAddress
                         content
                     }
-                }` 
-            }),
-        });
+                }`
 
-        console.log(await response.json());
+    const variables = {
+      name: mutationParams.name,
+      content: mutationParams.content,
+      twitterHandle: mutationParams.twitterHandle,
+      emailAddress: mutationParams.emailAddress,
+      path: window.location.pathname
     }
 
-    return (
-        <form onSubmit={submitComment} ref={formRef} className={styles.box}>
-            <label className={styles.label}>
-                Comment
-                <textarea name="content" required={true}></textarea>
-            </label>
-            <label className={styles.label}>
-                Name
-                <input type="text" name="name" required={true} />
-            </label>
-            <label className={styles.label}>
-                Email Address
-                <input type="email" name="emailAddress" />
-            </label>
-            <label className={styles.label}>
-                Twitter Handle
-                <input type="text" name="twitterHandle" />
-            </label>
+    await graphQLClient.request(query, variables)
+  }
 
-            <button>Submit</button>
-        </form>
-    )
+  return (
+    <form onSubmit={submitComment} ref={formRef} className={styles.box}>
+      <label className={styles.label}>
+        Comment
+        <textarea name="content" required={true}></textarea>
+      </label>
+      <label className={styles.label}>
+        Name
+        <input type="text" name="name" required={true} />
+      </label>
+      <label className={styles.label}>
+        Email Address
+        <input type="email" name="emailAddress" />
+      </label>
+      <label className={styles.label}>
+        Twitter Handle
+        <input type="text" name="twitterHandle" />
+      </label>
+
+      <button>Submit</button>
+    </form>
+  )
 }
