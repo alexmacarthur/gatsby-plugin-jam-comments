@@ -2,7 +2,7 @@
   "name": "gatsby-plugin-jam-comments",
   "version": "0.1.0",
   "description": "The Gatsby plugin for Jam Comments.",
-  "main": "index.js",
+  "main": "gatsby-node.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "precommit": "pretty-quick --staged",

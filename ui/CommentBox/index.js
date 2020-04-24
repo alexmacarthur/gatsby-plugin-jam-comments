@@ -1,15 +1,7 @@
 import React, { useRef } from "react"
 import styles from "./styles.module.css"
-import { request, GraphQLClient } from "graphql-request"
-
-const graphQLClient = new GraphQLClient("http://localhost:4000/graphql", {
-  headers: {
-    "Content-Type": "application/json",
-    // 'x-api-key': process.env.GATSBY_JAM_COMMENTS_API_KEY,
-    "x-api-key": "7T0CRJM-0N34CT8-MQEX3CP-JHGQ6R2",
-    "x-domain": "mysitename.com"
-  }
-})
+// import { request } from "graphql-request"
+import getClient from "../../get-client"
 
 export default () => {
   const formRef = useRef(null)
@@ -41,7 +33,7 @@ export default () => {
       path: window.location.pathname
     }
 
-    await graphQLClient.request(query, variables)
+    await getClient().request(query, variables)
   }
 
   return (
