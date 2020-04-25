@@ -1,7 +1,9 @@
 import React, { useRef } from "react"
 import styles from "./styles.module.css"
-// import { request } from "graphql-request"
 import getClient from "../../get-client"
+
+const apiKey = process.env.GATSBY_JAM_COMMENTS_API_KEY
+const domain = process.env.GATSBY_JAM_COMMENTS_DOMAIN
 
 export default () => {
   const formRef = useRef(null)
@@ -15,8 +17,8 @@ export default () => {
     }, {})
 
     const query = `
-                mutation CreateComment($name: String!, $content: String!, $twitterHandle: String, $emailAddress: String){
-                    createComment(name: $name, content: $content, twitterHandle: $twitterHandle, emailAddress: $emailAddress) {
+                mutation CreateComment($name: String!, $content: String!, $twitterHandle: String, $emailAddress: String, $path: String){
+                    createComment(name: $name, content: $content, twitterHandle: $twitterHandle, emailAddress: $emailAddress, path: $path) {
                         createdAt
                         name
                         twitterHandle
@@ -33,7 +35,7 @@ export default () => {
       path: window.location.pathname
     }
 
-    await getClient().request(query, variables)
+    await getClient({ apiKey, domain }).request(query, variables)
   }
 
   return (

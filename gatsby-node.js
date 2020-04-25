@@ -11,6 +11,9 @@ exports.sourceNodes = async (
   const { api_key: apiKey, domain } = configOptions
   const { createNode } = actions
 
+  process.env.GATSBY_JAM_COMMENTS_API_KEY = apiKey
+  process.env.GATSBY_JAM_COMMENTS_DOMAIN = domain
+
   console.log("\nPulling all comments \n")
 
   const query = `

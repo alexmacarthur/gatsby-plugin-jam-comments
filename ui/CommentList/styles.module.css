@@ -1,0 +1,29 @@
+.list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.comment * {
+    font: inherit;
+}
+
+.comment + .comment {
+    margin-top: 2rem;
+}
+
+.deets {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.name {
+    margin: 0;
+    font-weight: bold;
+}
+
+.date {
+    padding-left: .5rem;
+}
+
