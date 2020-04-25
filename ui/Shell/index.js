@@ -1,36 +1,16 @@
 import React from "react"
 import CommentBox from "../CommentBox"
+import CommentList from "../CommentList"
 import styles from "./styles.module.css"
-import { useStaticQuery } from "gatsby"
 
-export default props => {
-  console.log(props.pageContext)
-
-  // const results = useStaticQuery(
-  //     graphql`
-  //         query {
-  //             allJamComment(limit: 10) {
-  //                 edges {
-  //                     node {
-  //                         content
-  //                         twitterHandle
-  //                         name
-  //                         path
-  //                         id
-  //                     }
-  //                 }
-  //             }
-  //         }
-  //         `
-  //     );
+export default ({ pageContext }) => {
+  const comments = pageContext.comments || []
 
   return (
     <div className={styles.shell}>
       <h3>Comments</h3>
-
-      {/* <CommentList></CommentList> */}
-
       <CommentBox />
+      <CommentList comments={comments}></CommentList>
     </div>
   )
 }

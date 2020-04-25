@@ -5,7 +5,7 @@
   "main": "gatsby-node.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "precommit": "pretty-quick --staged",
+    "lint": "eslint --fix **/*.js",
     "prettier": "prettier --write \"**/*.{md,js}\""
   },
   "repository": {
@@ -27,9 +27,23 @@
   "dependencies": {
     "graphql-request": "^1.8.2"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
   "devDependencies": {
-    "husky": "^2.3.0",
-    "prettier": "^1.17.1",
+    "eslint": "^6.8.0",
+    "eslint-plugin-react": "^7.19.0",
+    "husky": "^2.7.0",
+    "lint-staged": "^10.1.7",
+    "prettier": "^1.19.1",
     "pretty-quick": "^1.11.0"
   }
 }
