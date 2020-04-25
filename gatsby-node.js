@@ -5,7 +5,7 @@ require("dotenv").config({
 const getClient = require("./get-client")
 
 exports.sourceNodes = async (
-  { actions, createContentDigest },
+  { actions, cache, createContentDigest },
   configOptions
 ) => {
   const { api_key: apiKey, domain } = configOptions
@@ -53,12 +53,20 @@ exports.sourceNodes = async (
 
     createNode(nodeData)
   }
+
+  await cache.set("jamComments", comments)
 }
 
-exports.onCreatePage = ({ graphql, page, actions }) => {
+/**
+ * When each page is created, attach any of its comments to page context.
+ */
+exports.onCreatePage = async ({ page, actions, cache }) => {
   const { createPage, deletePage } = actions
+  const cachedComments = await cache.get("jamComments")
 
-  console.log(graphql)
+  const comments = cachedComments.filter(c => {
+    return c.path === page.path
+  })
 
   deletePage(page)
 
@@ -66,15 +74,8 @@ exports.onCreatePage = ({ graphql, page, actions }) => {
     ...page,
     context: {
       ...page.context,
-      comments: ["one", "two", "three"]
+
+      comments
     }
   })
 }
-
-// exports.onCreateNode = ({ node, actions }) => {
-//     const { createNode, createNodeField } = actions
-
-//     console.log(node);
-//     // Transform the new node here and create a new node or
-//     // create a new node field.
-// }
