@@ -17,8 +17,8 @@ export default () => {
     }, {})
 
     const query = `
-                mutation CreateComment($name: String!, $content: String!, $twitterHandle: String, $emailAddress: String, $path: String){
-                    createComment(name: $name, content: $content, twitterHandle: $twitterHandle, emailAddress: $emailAddress, path: $path) {
+                mutation CreateComment($name: String!, $path: String!, $content: String!, $twitterHandle: String, $emailAddress: String){
+                    createComment(name: $name, path: $path, content: $content, twitterHandle: $twitterHandle, emailAddress: $emailAddress) {
                         createdAt
                         name
                         twitterHandle
