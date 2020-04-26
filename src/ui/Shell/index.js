@@ -1,7 +1,7 @@
 import React from "react"
 import CommentBox from "../CommentBox"
 import CommentList from "../CommentList"
-import styles from "./styles.module.css"
+// import styles from "./styles.module.css"
 
 export default ({ pageContext }) => {
   const comments = pageContext.comments || []

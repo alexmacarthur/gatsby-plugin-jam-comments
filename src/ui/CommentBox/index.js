@@ -1,6 +1,7 @@
 import React, { useRef } from "react"
-import styles from "./styles.module.css"
-import getClient from "../../get-client"
+// import styles from "./styles.module.css"
+import "./styles.css"
+import getClient from "../../shared/getClient"
 
 const apiKey = process.env.GATSBY_JAM_COMMENTS_API_KEY
 const domain = process.env.GATSBY_JAM_COMMENTS_DOMAIN
@@ -39,7 +40,7 @@ export default () => {
   }
 
   return (
-    <form onSubmit={submitComment} ref={formRef} className={styles.box}>
+    <form onSubmit={submitComment} ref={formRef} className="box">
       <label className={styles.label}>
         Comment
         <textarea name="content" required={true}></textarea>
