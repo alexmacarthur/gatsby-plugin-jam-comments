@@ -38,11 +38,11 @@ const OUTPUT_DATA = [
 ];
 
 let plugins = [
+    resolve(),
     scss(),
     commonjs({
         exclude: 'src/ui/**',
     }),
-    resolve(),
     babel({
         configFile: path.resolve(__dirname, "babel.config.js"),
         exclude: "node_modules/*"
@@ -60,6 +60,8 @@ if (isProduction) {
         })
     ];
 }
+
+console.log(pkg.peerDependencies);
 
 export default OUTPUT_DATA.map(({ file, format }) => ({
     input: "./src/ui/Shell/index.js",

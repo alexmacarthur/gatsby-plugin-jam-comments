@@ -1,0 +1,16 @@
+.jc-Form {
+    display: flex;
+    flex-direction: column;
+    
+    input, textarea {
+        border: 3px solid gray;
+    }
+}
+
+.jc-Form {
+    &-label {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+    }
+} 

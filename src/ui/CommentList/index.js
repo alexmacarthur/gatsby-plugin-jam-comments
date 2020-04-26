@@ -1,5 +1,5 @@
 import React from "react"
-// import styles from "./styles.module.css"
+import "./styles.scss";
 
 const prettyDate = unix => {
   let date = new Date(Number(unix))
@@ -11,20 +11,23 @@ const prettyDate = unix => {
 
 export default ({ comments }) => {
   return (
-    <ul className={styles.list}>
+    <ul className={"jc-CommentList"}>
       {comments.map(comment => {
         return (
-          <li key={comment.id} className={styles.comment}>
-            <span className={styles.deets}>
-              <h6 className={styles.name}>{comment.name}</h6>
-              <span className={styles.date}>
-                {prettyDate(comment.createdAt)}
-              </span>
-            </span>
-            <div className={styles.content}>
-              <p>{comment.content}</p>
-            </div>
-          </li>
+          <span key={comment.id}>
+            hello!
+          </span>
+          // <li key={comment.id} className={styles.comment}>
+          //   <span className={styles.deets}>
+          //     <h6 className={styles.name}>{comment.name}</h6>
+          //     <span className={styles.date}>
+          //       {prettyDate(comment.createdAt)}
+          //     </span>
+          //   </span>
+          //   <div className={styles.content}>
+          //     <p>{comment.content}</p>
+          //   </div>
+          // </li>
         )
       })}
     </ul>

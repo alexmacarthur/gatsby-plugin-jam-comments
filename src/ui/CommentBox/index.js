@@ -1,5 +1,4 @@
 import React, { useRef } from "react"
-// import styles from "./styles.module.css"
 import "./styles.css"
 import getClient from "../../shared/getClient"
 
@@ -40,20 +39,20 @@ export default () => {
   }
 
   return (
-    <form onSubmit={submitComment} ref={formRef} className="box">
-      <label className={styles.label}>
+    <form onSubmit={submitComment} ref={formRef} className="jc-Form">
+      <label className={"jc-Form-label"}>
         Comment
         <textarea name="content" required={true}></textarea>
       </label>
-      <label className={styles.label}>
+      <label className={"jc-Form-label"}>
         Name
         <input type="text" name="name" required={true} />
       </label>
-      <label className={styles.label}>
+      <label className={"jc-Form-label"}>
         Email Address
         <input type="email" name="emailAddress" />
       </label>
-      <label className={styles.label}>
+      <label className={"jc-Form-label"}>
         Twitter Handle
         <input type="text" name="twitterHandle" />
       </label>
