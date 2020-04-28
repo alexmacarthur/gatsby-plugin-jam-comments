@@ -1,29 +1,19 @@
 .jc-CommentList {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
+    &-count {
+        display: inline-block;
+        margin-bottom: 1rem;
+    }
 
-.comment * {
-    font: inherit;
-}
+    &-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
 
-.comment + .comment {
-    margin-top: 2rem;
-}
-
-.deets {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-
-.name {
-    margin: 0;
-    font-weight: bold;
-}
-
-.date {
-    padding-left: .5rem;
+    &-item {
+        & + .jc-CommentList-item {
+            margin-top: 2rem;
+        }
+    }
 }
 

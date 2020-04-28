@@ -4,7 +4,8 @@
   "author": "Alex MacArthur <alex@macarthur.me> (https://macarthur.me)",
   "license": "MIT",
   "description": "The Gatsby plugin for Jam Comments.",
-  "main": "dist/jam-comments.min.js",
+  "main": "gatsby-node.js",
+  "module": "dist/jam-comments.min.js",
   "scripts": {
     "watch": "NODE_ENV=development rollup -c -w",
     "build": "NODE_ENV=production rollup -c",
@@ -36,7 +37,8 @@
   },
   "homepage": "https://github.com/alexmacarthur/gatsby-plugin-jam-comments#readme",
   "dependencies": {
-    "graphql-request": "^1.8.2"
+    "graphql-request": "^1.8.2",
+    "isomorphic-fetch": "^2.2.1"
   },
   "husky": {
     "hooks": {
@@ -64,6 +66,7 @@
     "pretty-quick": "^1.11.0",
     "rollup": "^1.31.0",
     "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-postcss": "^3.1.1",
     "rollup-plugin-scss": "^2.4.0",
     "rollup-plugin-terser": "^5.2.0"
   }
