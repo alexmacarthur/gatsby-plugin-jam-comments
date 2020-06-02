@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react"
 import Error from "../Error"
 import "./styles.scss"
 import request from "../../shared/request"
+import formInputsToValues from "../../utils/formInputsToValues"
 
 const apiKey = process.env.GATSBY_JAM_COMMENTS_API_KEY
 const domain = process.env.GATSBY_JAM_COMMENTS_DOMAIN
@@ -12,22 +13,24 @@ export default ({ newComment }) => {
 
   const submitComment = async e => {
     e.preventDefault()
+    setFormErrors([])
 
-    let mutationParams = [...formRef.current.elements].reduce((obj, input) => {
-      obj[input.name] = input.value
-      return obj
-    }, {})
+    let mutationParams = formInputsToValues(formRef.current)
+
+    // rset
+    formRef.current.reset()
 
     const query = `
-                mutation CreateComment($name: String!, $path: String!, $content: String!, $emailAddress: String){
-                    createComment(name: $name, path: $path, content: $content, emailAddress: $emailAddress) {
-                        createdAt
-                        name
-                        emailAddress
-                        content
-                        id
-                    }
-                }`
+      mutation CreateComment($name: String!, $path: String!, $content: String!, $emailAddress: String){
+          createComment(name: $name, path: $path, content: $content, emailAddress: $emailAddress) {
+              createdAt
+              name
+              emailAddress
+              content
+              id
+          }
+      }
+    `
 
     const { name, content, emailAddress } = mutationParams
 
@@ -40,7 +43,7 @@ export default ({ newComment }) => {
 
     let response = await request({ apiKey, domain, query, variables }).catch(
       function() {
-        setFormErrors(["Sorry, something went wrong"])
+        setFormErrors(["Sorry, something went wrong!"])
       }
     )
 

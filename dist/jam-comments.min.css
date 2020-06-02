@@ -5,6 +5,18 @@
   --border-radius: 3px;
   margin: 2rem 0; }
 
+.jc-CommentList-count {
+  display: inline-block;
+  margin-bottom: 1rem; }
+
+.jc-CommentList-list {
+  list-style: none;
+  padding: 0;
+  margin: 0; }
+
+.jc-CommentList-item + .jc-CommentList-item {
+  margin-top: 2rem; }
+
 .jc-CommentBox-form {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -28,17 +40,12 @@
   padding: .25rem 1rem;
   margin-top: .5rem; }
 
-.jc-CommentHistory-count {
-  display: inline-block;
-  margin-bottom: 1rem; }
-
-.jc-CommentHistory-list {
-  list-style: none;
-  padding: 0;
-  margin: 0; }
-
-.jc-CommentHistory-item + .jc-CommentHistory-item {
-  margin-top: 2rem; }
+.jc-Error {
+  background: var(--jc-red);
+  margin-bottom: 1rem;
+  border-radius: var(--border-radius);
+  padding: .75rem 1rem;
+  color: white; }
 
 .jc-Comment * {
   font: inherit; }
@@ -63,22 +70,3 @@
   color: inherit; }
   .jc-Comment-anchor:visited {
     color: inherit; }
-
-.jc-CommentList-count {
-  display: inline-block;
-  margin-bottom: 1rem; }
-
-.jc-CommentList-list {
-  list-style: none;
-  padding: 0;
-  margin: 0; }
-
-.jc-CommentList-item + .jc-CommentList-item {
-  margin-top: 2rem; }
-
-.jc-Error {
-  background: var(--jc-red);
-  margin-bottom: 1rem;
-  border-radius: var(--border-radius);
-  padding: .75rem 1rem;
-  color: white; }

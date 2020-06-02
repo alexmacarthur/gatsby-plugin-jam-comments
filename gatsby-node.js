@@ -22,7 +22,6 @@ exports.sourceNodes = async (
                     comments(domain: $domain) {
                         createdAt
                         name
-                        twitterHandle
                         emailAddress
                         content
                         path
@@ -40,9 +39,14 @@ exports.sourceNodes = async (
         domain
       }
     })
+
+    if (queryResult.errors) {
+      throw new Error(queryResult.errors[0].message)
+    }
+
     comments = queryResult.data.comments
   } catch (e) {
-    console.error(e.message)
+    console.error(`Jam Comments error! ${e.message}`)
   }
 
   for (let comment of comments) {

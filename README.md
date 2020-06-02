@@ -25,7 +25,6 @@ GATSBY_JAM_COMMENTS_DOMAIN="mydomain.com"
     edges {
       node {
         content
-        twitterHandle
         name
         path
         id

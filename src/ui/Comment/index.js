@@ -1,5 +1,5 @@
 import React from "react"
-import { toPrettyDate, toIsoString } from "../../shared/formatDate"
+import { toPrettyDate, toIsoString } from "../../utils/formatDate"
 import "./styles.scss"
 
 export default ({ comment }) => {
