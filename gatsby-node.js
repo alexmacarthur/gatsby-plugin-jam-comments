@@ -15,7 +15,7 @@ exports.sourceNodes = async (
   process.env.GATSBY_JAM_COMMENTS_API_KEY = apiKey
   process.env.GATSBY_JAM_COMMENTS_DOMAIN = domain
 
-  console.log("\nPulling all comments \n")
+  console.log("Pulling all comments...")
 
   const query = `
                 query Comments($domain: String){
@@ -48,6 +48,8 @@ exports.sourceNodes = async (
   } catch (e) {
     console.error(`Jam Comments error! ${e.message}`)
   }
+
+  console.log(`Found ${comments.length} comments...`)
 
   for (let comment of comments) {
     const nodeData = Object.assign(

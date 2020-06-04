@@ -1,0 +1,3 @@
+@mixin for-tablet-landscape-up {
+  @media screen and (min-width: 900px) { @content; }
+}

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react"
-import Error from "../Error"
+import Message from "../Message"
 import "./styles.scss"
 import request from "../../shared/request"
 import formInputsToValues from "../../utils/formInputsToValues"
@@ -9,15 +9,17 @@ const domain = process.env.GATSBY_JAM_COMMENTS_DOMAIN
 
 export default ({ newComment }) => {
   const formRef = useRef(null)
-  const [formErrors, setFormErrors] = useState([])
+  const [formSuccessMessage, setFormSuccess] = useState("")
+  const [formErrorMessage, setFormError] = useState("")
+  const [shouldShowFullForm, setShouldShowFullForm] = useState(false)
 
   const submitComment = async e => {
     e.preventDefault()
-    setFormErrors([])
+    setFormError("")
+    setFormSuccess("")
 
     let mutationParams = formInputsToValues(formRef.current)
 
-    // rset
     formRef.current.reset()
 
     const query = `
@@ -43,25 +45,29 @@ export default ({ newComment }) => {
 
     let response = await request({ apiKey, domain, query, variables }).catch(
       function() {
-        setFormErrors(["Sorry, something went wrong!"])
+        setFormError("Sorry, something went wrong!")
       }
     )
 
-    if (!response.errors) {
+    if (response && !response.errors) {
+      setFormSuccess("Comment successfully submitted!")
       return newComment(response.data.createComment)
     }
 
-    setFormErrors(response.errors.map(e => e.message))
+    setFormError("Sorry, something went wrong!")
   }
 
   return (
     <div className={"jc-CommentBox"}>
-      {formErrors.map(error => (
-        <Error key={error}>{error}</Error>
-      ))}
+      {formSuccessMessage && (
+        <Message isSuccessful={true}>{formSuccessMessage}</Message>
+      )}
+
+      {formErrorMessage && <Message>{formErrorMessage}</Message>}
 
       <form
         onSubmit={submitComment}
+        onFocus={() => !shouldShowFullForm && setShouldShowFullForm(true)}
         ref={formRef}
         className={"jc-CommentBox-form"}
       >
@@ -69,18 +75,24 @@ export default ({ newComment }) => {
           Comment
           <textarea name="content" required={true}></textarea>
         </label>
-        <label className={"jc-CommentBox-label"}>
-          Name
-          <input type="text" name="name" required={true} />
-        </label>
-        <label className={"jc-CommentBox-label"}>
-          Email Address
-          <input type="email" name="emailAddress" />
-        </label>
 
-        <span>
-          <button className={"jc-CommentBox-button"}>Submit</button>
-        </span>
+        {shouldShowFullForm && (
+          <>
+            <label className={"jc-CommentBox-label"}>
+              Name
+              <input type="text" name="name" required={true} />
+            </label>
+
+            <label className={"jc-CommentBox-label"}>
+              Email Address
+              <input type="email" name="emailAddress" />
+            </label>
+
+            <span className={"jc-CommentBox-buttonWrapper"}>
+              <button className={"jc-CommentBox-button"}>Submit</button>
+            </span>
+          </>
+        )}
       </form>
     </div>
   )

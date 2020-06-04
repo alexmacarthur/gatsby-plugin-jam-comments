@@ -13,13 +13,13 @@ export default ({ comment }) => {
           aria-label="comment anchor link"
         >
           #
+          <time
+            className={"jc-Comment-date"}
+            dateTime={toIsoString(comment.createdAt)}
+          >
+            {toPrettyDate(comment.createdAt)}
+          </time>
         </a>
-        <time
-          className={"jc-Comment-date"}
-          dateTime={toIsoString(comment.createdAt)}
-        >
-          {toPrettyDate(comment.createdAt)}
-        </time>
       </span>
       <div className={"jc-Comment-content"}>
         <p>{comment.content}</p>
