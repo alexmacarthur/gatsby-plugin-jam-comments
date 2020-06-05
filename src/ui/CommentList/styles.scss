@@ -1,7 +1,22 @@
 .jc-CommentList {
+    overflow: hidden;
+
     &-count {
+        position: relative;
         display: inline-block;
-        margin-bottom: 1rem;
+        margin-bottom: 25px;
+
+        &:after {
+            content: '';
+            display: block;
+            position: absolute;
+            width: 100vw;
+            height: 2px;
+            background: var(--jc-gray);
+            top: 50%;
+            left: calc(100% + 20px);
+            transform: translateY(-50%);
+        }
     }
 
     &-list {

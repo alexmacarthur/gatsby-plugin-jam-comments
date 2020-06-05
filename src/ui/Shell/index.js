@@ -15,7 +15,6 @@ export default ({ pageContext }) => {
 
   return (
     <div className={"jc-Shell"}>
-      <h3>Comments</h3>
       <CommentBox newComment={newComment} />
       <CommentList comments={comments}></CommentList>
     </div>

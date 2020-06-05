@@ -24,13 +24,13 @@ export default ({ newComment }) => {
 
     const query = `
       mutation CreateComment($name: String!, $path: String!, $content: String!, $emailAddress: String){
-          createComment(name: $name, path: $path, content: $content, emailAddress: $emailAddress) {
-              createdAt
-              name
-              emailAddress
-              content
-              id
-          }
+        createComment(name: $name, path: $path, content: $content, emailAddress: $emailAddress) {
+          createdAt
+          name
+          emailAddress
+          content
+          id
+        }
       }
     `
 
@@ -65,6 +65,8 @@ export default ({ newComment }) => {
 
       {formErrorMessage && <Message>{formErrorMessage}</Message>}
 
+      <h3>Leave a Comment</h3>
+
       <form
         onSubmit={submitComment}
         onFocus={() => !shouldShowFullForm && setShouldShowFullForm(true)}
@@ -72,7 +74,6 @@ export default ({ newComment }) => {
         className={"jc-CommentBox-form"}
       >
         <label className={"jc-CommentBox-label jc-CommentBox-textarea"}>
-          Comment
           <textarea name="content" required={true}></textarea>
         </label>
 

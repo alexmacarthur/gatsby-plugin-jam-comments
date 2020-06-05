@@ -6,8 +6,8 @@
     &-details {
         display: flex;
         align-items: center;
-        margin-bottom: .25rem;
-        color: var(--jc-gray-light);
+        color: var(--jc-gray-dark);
+        margin-bottom: 15px;
     }
 
     &-name {
@@ -16,7 +16,10 @@
     }
 
     &-date {
-        font-size: .85em;
+        font-size: .75em;
+        color: var(--jc-gray-dark);
+        margin-bottom: 20px;
+        display: block;
     }
 
     &-anchor {

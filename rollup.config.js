@@ -6,6 +6,7 @@ import postcss from "rollup-plugin-postcss"
 import scss from "rollup-plugin-scss"
 import { terser } from "rollup-plugin-terser"
 import resolve from "@rollup/plugin-node-resolve"
+import reactSvg from "rollup-plugin-react-svg"
 
 const isProduction = process.env.NODE_ENV === "production"
 
@@ -51,6 +52,22 @@ let plugins = [
   babel({
     configFile: path.resolve(__dirname, "babel.config.js"),
     exclude: "node_modules/*"
+  }),
+  reactSvg({
+    // svgo options
+    svgo: {
+      plugins: [], // passed to svgo
+      multipass: true
+    },
+
+    // whether to output jsx
+    jsx: false,
+
+    // include: string
+    include: null,
+
+    // exclude: string
+    exclude: null
   })
 ]
 

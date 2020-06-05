@@ -2,22 +2,49 @@
   --jc-red: #BA274A;
   --jc-green: #5BBA6F;
   --jc-gray: #dfdede;
-  --jc-gray-light: #5c5c5c;
+  --jc-gray-dark: #5c5c5c;
   --border-radius: 5px;
   margin: 2rem 0; }
+
+.jc-CommentList {
+  overflow: hidden; }
+  .jc-CommentList-count {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 25px; }
+    .jc-CommentList-count:after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 100vw;
+      height: 2px;
+      background: var(--jc-gray);
+      top: 50%;
+      left: calc(100% + 20px);
+      transform: translateY(-50%); }
+  .jc-CommentList-list {
+    list-style: none;
+    padding: 0;
+    margin: 0; }
+  .jc-CommentList-item + .jc-CommentList-item {
+    margin-top: 2rem; }
 
 .jc-CommentBox-form {
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 1rem;
-  margin-bottom: 3rem; }
+  margin-bottom: 30px; }
   @media screen and (min-width: 900px) {
     .jc-CommentBox-form {
       grid-template-columns: 1fr 1fr; } }
 
 .jc-CommentBox input, .jc-CommentBox textarea {
   border: 2px solid var(--jc-gray);
-  border-radius: var(--border-radius); }
+  border-radius: var(--border-radius);
+  padding: 8px; }
+
+.jc-CommentBox textarea {
+  padding: 15px; }
 
 .jc-CommentBox-textarea, .jc-CommentBox-buttonWrapper {
   grid-column: 1 / -1; }
@@ -30,30 +57,13 @@
 
 .jc-CommentBox-button {
   border-radius: var(--border-radius);
+  border: 2px solid var(--jc-gray);
   background: var(--jc-gray);
   padding: .25rem 1rem;
   margin-top: .5rem;
-  border: 0;
   cursor: pointer; }
-
-.jc-CommentList-count {
-  display: inline-block;
-  margin-bottom: 1rem; }
-
-.jc-CommentList-list {
-  list-style: none;
-  padding: 0;
-  margin: 0; }
-
-.jc-CommentList-item + .jc-CommentList-item {
-  margin-top: 2rem; }
-
-.jc-Error {
-  background: var(--jc-red);
-  margin-bottom: 1rem;
-  border-radius: var(--border-radius);
-  padding: .75rem 1rem;
-  color: white; }
+  .jc-CommentBox-button:hover {
+    border-color: var(--jc-gray-dark); }
 
 .jc-Comment * {
   font: inherit; }
@@ -61,15 +71,18 @@
 .jc-Comment-details {
   display: flex;
   align-items: center;
-  margin-bottom: .25rem;
-  color: var(--jc-gray-light); }
+  color: var(--jc-gray-dark);
+  margin-bottom: 15px; }
 
 .jc-Comment-name {
   margin: 0;
   font-weight: bold; }
 
 .jc-Comment-date {
-  font-size: .85em; }
+  font-size: .75em;
+  color: var(--jc-gray-dark);
+  margin-bottom: 20px;
+  display: block; }
 
 .jc-Comment-anchor {
   padding: 0 .05rem 0 .5rem;

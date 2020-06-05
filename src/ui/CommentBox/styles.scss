@@ -6,7 +6,7 @@
         display: grid;
         grid-template-columns: 1fr;
         grid-gap: 1rem;
-        margin-bottom: 3rem;
+        margin-bottom: 30px;
 
         @include for-tablet-landscape-up {
             grid-template-columns: 1fr 1fr;
@@ -16,6 +16,11 @@
     input, textarea {
         border: 2px solid var(--jc-gray);
         border-radius: var(--border-radius);
+        padding: 8px;
+    }
+
+    textarea {
+        padding: 15px;
     }
 
     &-textarea,
@@ -34,10 +39,14 @@
 
     &-button {
         border-radius: var(--border-radius);
+        border: 2px solid var(--jc-gray);
         background: var(--jc-gray);
         padding: .25rem 1rem;
         margin-top: .5rem;
-        border: 0;
         cursor: pointer;
+        
+        &:hover {
+            border-color: var(--jc-gray-dark);
+        }
     }
 }
