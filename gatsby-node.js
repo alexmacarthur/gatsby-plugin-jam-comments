@@ -59,7 +59,7 @@ exports.sourceNodes = async (
         children: [],
         internal: {
           type: `JamComment`,
-          mediaType: "text/markdown",
+          mediaType: "text/plain",
           contentDigest: createContentDigest(comment.content)
         }
       }

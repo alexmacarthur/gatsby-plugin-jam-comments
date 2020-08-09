@@ -6,29 +6,6 @@
   --border-radius: 5px;
   margin: 2rem 0; }
 
-.jc-CommentList {
-  overflow: hidden; }
-  .jc-CommentList-count {
-    position: relative;
-    display: inline-block;
-    margin-bottom: 25px; }
-    .jc-CommentList-count:after {
-      content: '';
-      display: block;
-      position: absolute;
-      width: 100vw;
-      height: 2px;
-      background: var(--jc-gray);
-      top: 50%;
-      left: calc(100% + 20px);
-      transform: translateY(-50%); }
-  .jc-CommentList-list {
-    list-style: none;
-    padding: 0;
-    margin: 0; }
-  .jc-CommentList-item + .jc-CommentList-item {
-    margin-top: 2rem; }
-
 .jc-CommentBox-form {
   display: grid;
   grid-template-columns: 1fr;
@@ -55,15 +32,40 @@
   .jc-CommentBox-label input, .jc-CommentBox-label textarea {
     margin-top: 3px; }
 
-.jc-CommentBox-button {
+.jc-CommentList {
+  overflow: hidden; }
+  .jc-CommentList-count {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 25px; }
+    .jc-CommentList-count:after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 100vw;
+      height: 2px;
+      background: var(--jc-gray);
+      top: 50%;
+      left: calc(100% + 20px);
+      transform: translateY(-50%); }
+  .jc-CommentList-list {
+    list-style: none;
+    padding: 0;
+    margin: 0; }
+  .jc-CommentList-item + .jc-CommentList-item {
+    margin-top: 2rem; }
+
+.jc-Message {
+  margin-bottom: 1rem;
   border-radius: var(--border-radius);
-  border: 2px solid var(--jc-gray);
-  background: var(--jc-gray);
-  padding: .25rem 1rem;
-  margin-top: .5rem;
-  cursor: pointer; }
-  .jc-CommentBox-button:hover {
-    border-color: var(--jc-gray-dark); }
+  padding: .75rem 1rem;
+  color: white; }
+
+.jc-Message--error {
+  background: var(--jc-red); }
+
+.jc-Message--success {
+  background: var(--jc-green); }
 
 .jc-Comment * {
   font: inherit; }
@@ -92,15 +94,3 @@
   font-weight: normal; }
   .jc-Comment-anchor:visited {
     color: inherit; }
-
-.jc-Message {
-  margin-bottom: 1rem;
-  border-radius: var(--border-radius);
-  padding: .75rem 1rem;
-  color: white; }
-
-.jc-Message--error {
-  background: var(--jc-red); }
-
-.jc-Message--success {
-  background: var(--jc-green); }

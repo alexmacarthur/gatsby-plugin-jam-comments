@@ -72,12 +72,15 @@ export default ({ newComment }) => {
 
       <form
         onSubmit={submitComment}
-        onFocus={() => !shouldShowFullForm && setShouldShowFullForm(true)}
+        onFocus={() => console.log('hii')}
         ref={formRef}
         className={"jc-CommentBox-form"}
       >
         <label className={"jc-CommentBox-label jc-CommentBox-textarea"}>
-          <textarea name="content" required={true}></textarea>
+          <textarea 
+            name="content"
+            required={true}
+            onFocus={() => !shouldShowFullForm && setShouldShowFullForm(true)}></textarea>
         </label>
 
         {shouldShowFullForm && (
