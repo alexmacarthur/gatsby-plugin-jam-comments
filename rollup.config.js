@@ -54,19 +54,12 @@ let plugins = [
     exclude: "node_modules/*"
   }),
   reactSvg({
-    // svgo options
     svgo: {
-      plugins: [], // passed to svgo
+      plugins: [],
       multipass: true
     },
-
-    // whether to output jsx
     jsx: false,
-
-    // include: string
     include: null,
-
-    // exclude: string
     exclude: null
   })
 ]

@@ -18,8 +18,8 @@ exports.sourceNodes = async (
   console.log("Pulling all comments...")
 
   const query = `
-                query Comments($domain: String){
-                    comments(domain: $domain) {
+                query Comments($domain: String!, $status: String){
+                    comments(domain: $domain, status: $status) {
                         createdAt
                         name
                         emailAddress
@@ -36,7 +36,8 @@ exports.sourceNodes = async (
       domain,
       query,
       variables: {
-        domain
+        domain,
+        status: "approved"
       }
     })
 
@@ -48,8 +49,6 @@ exports.sourceNodes = async (
   } catch (e) {
     console.error(`Jam Comments error! ${e.message}`)
   }
-
-  console.log(`Found ${comments.length} comments...`)
 
   for (let comment of comments) {
     const nodeData = Object.assign(

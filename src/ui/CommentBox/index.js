@@ -49,12 +49,15 @@ export default ({ newComment }) => {
       }
     )
 
-    if (response && !response.errors) {
+    if (response.errors && response.errors.length) {
+      console.log(response.errors[0].message)
+      setFormError("Sorry, something went wrong!")
+    }
+
+    if (response) {
       setFormSuccess("Comment successfully submitted!")
       return newComment(response.data.createComment)
     }
-
-    setFormError("Sorry, something went wrong!")
   }
 
   return (

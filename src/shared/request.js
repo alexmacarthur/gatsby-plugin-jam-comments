@@ -1,5 +1,7 @@
+const endpoint = require("./endpoint")
+
 module.exports = async ({ apiKey, domain, query, variables = {} } = {}) => {
-  let response = await fetch("http://localhost:4000/graphql", {
+  const response = await fetch(endpoint(), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

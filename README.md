@@ -1,6 +1,6 @@
 # gatsby-plugin-jam-comments
 
-The official Gatsby plugin for integrating Jam Comments into your Gatsby application.
+The official Gatsby plugin for integrating [Jam Comments](https://jamcomments.com) into your Gatsby application.
 
 ## Setup
 
@@ -16,6 +16,14 @@ GATSBY_JAM_COMMENTS_DOMAIN="mydomain.com"
 ```
 
 ## Usage
+
+### Embedding Comments
+ 
+To include a comment form and existing comments on your blog posts, you'll need to place the following component on your page component(s), along with the required `path` and `pageContext` props: 
+
+```jsx
+<JamComments path={props.path} pageContext={props.pageContext} />
+```
 
 ### Querying for Data
 
