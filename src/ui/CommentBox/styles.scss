@@ -16,16 +16,15 @@
     input, textarea {
         border: 2px solid var(--jc-gray);
         border-radius: var(--border-radius);
-        padding: 8px;
-    }
-
-    textarea {
-        padding: 15px;
     }
 
     &-textarea,
     &-buttonWrapper {
         grid-column: 1 / -1;
+    }
+
+    &-buttonWrapper {
+        margin-top: 1.5rem;
     }
 
     &-label {

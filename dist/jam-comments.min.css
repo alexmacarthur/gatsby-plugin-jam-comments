@@ -17,14 +17,13 @@
 
 .jc-CommentBox input, .jc-CommentBox textarea {
   border: 2px solid var(--jc-gray);
-  border-radius: var(--border-radius);
-  padding: 8px; }
-
-.jc-CommentBox textarea {
-  padding: 15px; }
+  border-radius: var(--border-radius); }
 
 .jc-CommentBox-textarea, .jc-CommentBox-buttonWrapper {
   grid-column: 1 / -1; }
+
+.jc-CommentBox-buttonWrapper {
+  margin-top: 1.5rem; }
 
 .jc-CommentBox-label {
   display: flex;
@@ -60,6 +59,8 @@
   border-radius: var(--border-radius);
   padding: .75rem 1rem;
   color: white; }
+  .jc-Message p {
+    margin: 0; }
 
 .jc-Message--error {
   background: var(--jc-red); }
@@ -83,7 +84,6 @@
 .jc-Comment-date {
   font-size: .75em;
   color: var(--jc-gray-dark);
-  margin-bottom: 20px;
   display: block; }
 
 .jc-Comment-anchor {
