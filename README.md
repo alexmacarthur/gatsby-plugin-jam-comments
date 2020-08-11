@@ -4,15 +4,18 @@ The official Gatsby plugin for integrating [Jam Comments](https://jamcomments.co
 
 ## Setup
 
-Before installing this plugin, create a Jam Comments account.
+1. Create a Jam Comments account.
+2. Create a site and generate an API key.
+3. Install this plugin: `npm install gatsby-plugin-jam-comments`. 
+4. Configure the plugin by adding the following to your `gatsby-node.js`: 
 
-### Environment Variables
-
-The following environment variables are required for this plugin to work.
-
-```
-GATSBY_JAM_COMMENTS_API_KEY="1234567-1234567-1234567-1234567"
-GATSBY_JAM_COMMENTS_DOMAIN="mydomain.com"
+```js
+resolve: 'gatsby-plugin-jam-comments',
+  options: {
+    api_key: "YOUR-API-KEY",
+    domain: "your-domain.me"
+  }
+},
 ```
 
 ## Usage

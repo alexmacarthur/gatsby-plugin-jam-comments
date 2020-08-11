@@ -1,6 +1,6 @@
 {
   "name": "gatsby-plugin-jam-comments",
-  "version": "0.1.0",
+  "version": "0.0.2",
   "author": "Alex MacArthur <alex@macarthur.me> (https://macarthur.me)",
   "license": "MIT",
   "description": "The Gatsby plugin for Jam Comments.",

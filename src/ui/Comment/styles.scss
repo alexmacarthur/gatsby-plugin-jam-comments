@@ -1,4 +1,7 @@
+@import "../../shared.scss";
+
 .jc-Comment {
+
     * {
         font: inherit;
     }
@@ -16,6 +19,7 @@
     }
 
     &-date {
+        line-height: normal;
         font-size: .75em;
         color: var(--jc-gray-dark);
         display: block;

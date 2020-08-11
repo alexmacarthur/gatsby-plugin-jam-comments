@@ -7,7 +7,7 @@ export default ({ pageContext }) => {
   const initialComments =
     pageContext && pageContext.comments ? pageContext.comments : []
 
-  let [comments, setComments] = useState(initialComments)
+  let [comments, setComments] = useState(initialComments);
 
   const newComment = newComment => {
     setComments([newComment, ...comments])

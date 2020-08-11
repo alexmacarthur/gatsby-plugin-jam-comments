@@ -50,6 +50,8 @@ exports.sourceNodes = async (
     console.error(`Jam Comments error! ${e.message}`)
   }
 
+  console.log(`Found ${comments.length} comments...`);
+
   for (let comment of comments) {
     const nodeData = Object.assign(
       { ...comment },
@@ -75,20 +77,20 @@ exports.sourceNodes = async (
  * When each page is created, attach any of its comments to page context.
  */
 exports.onCreatePage = async ({ page, actions, cache }) => {
-  const { createPage, deletePage } = actions
-  const cachedComments = await cache.get("jamComments")
+  const { createPage, deletePage } = actions;
+  const cachedComments = await cache.get("jamComments");
 
   const comments = cachedComments
     ? cachedComments.filter(c => {
-        return c.path === page.path
+        return c.path === page.path;
       })
     : []
 
   if (!comments.length) {
-    return
+    return;
   }
 
-  deletePage(page)
+  deletePage(page);
 
   createPage({
     ...page,
@@ -96,5 +98,5 @@ exports.onCreatePage = async ({ page, actions, cache }) => {
       ...page.context,
       comments
     }
-  })
+  });
 }

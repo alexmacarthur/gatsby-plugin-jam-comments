@@ -72,7 +72,6 @@ export default ({ newComment }) => {
 
       <form
         onSubmit={submitComment}
-        onFocus={() => console.log('hii')}
         ref={formRef}
         className={"jc-CommentBox-form"}
       >

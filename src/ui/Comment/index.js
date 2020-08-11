@@ -3,9 +3,7 @@ import { toPrettyDate, toIsoString } from "../../utils/formatDate"
 import "./styles.scss"
 
 export default ({ comment }) => {
-  comment.content = useMemo(() => comment.content.replace(/\n/g, "<br>\n"), [
-    comment.content
-  ])
+  comment.content = useMemo(() => comment.content.replace(/\n/g, "<br>\n"), [])
 
   return (
     <div className={"jc-Comment"}>
