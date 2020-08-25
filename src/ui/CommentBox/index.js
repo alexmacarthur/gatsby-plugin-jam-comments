@@ -23,8 +23,21 @@ export default ({ newComment }) => {
     formRef.current.reset()
 
     const query = `
-      mutation CreateComment($name: String!, $path: String!, $content: String!, $emailAddress: String){
-        createComment(name: $name, path: $path, content: $content, emailAddress: $emailAddress) {
+      mutation CreateComment(
+        $name: String!, 
+        $path: String!, 
+        $content: String!, 
+        $domain: String!,
+        $emailAddress: String
+      ){
+        createComment(
+          name: $name, 
+          path: $path, 
+          content: $content, 
+          emailAddress: $emailAddress
+          domain: $domain
+        ) {
+          domain
           createdAt
           name
           emailAddress
@@ -38,25 +51,27 @@ export default ({ newComment }) => {
 
     const variables = {
       name,
+      domain,
       content,
       emailAddress,
       path: window.location.pathname
     }
 
-    let response = await request({ apiKey, domain, query, variables }).catch(
-      function() {
+    try {
+      let response = await request({ apiKey, query, variables })
+
+      if (response?.errors && response.errors.length) {
+        console.log(response.errors[0].message)
         setFormError("Sorry, something went wrong!")
+        return;
       }
-    )
-
-    if (response.errors && response.errors.length) {
-      console.log(response.errors[0].message)
+  
+      if (response?.data?.createComment) {
+        setFormSuccess("Comment successfully submitted!")
+        return newComment(response.data.createComment);
+      }
+    } catch(e) {
       setFormError("Sorry, something went wrong!")
-    }
-
-    if (response) {
-      setFormSuccess("Comment successfully submitted!")
-      return newComment(response.data.createComment)
     }
   }
 

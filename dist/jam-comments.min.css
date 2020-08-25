@@ -74,6 +74,20 @@
     .jc-CommentList-item:last-child {
       margin-top: 0; }
 
+.jc-Message {
+  margin-bottom: 1rem;
+  border-radius: var(--border-radius);
+  padding: .75rem 1rem;
+  color: white; }
+  .jc-Message p {
+    margin: 0; }
+
+.jc-Message--error {
+  background: var(--jc-red); }
+
+.jc-Message--success {
+  background: var(--jc-green); }
+
 .jc-Comment * {
   font: inherit; }
 
@@ -101,17 +115,3 @@
   font-weight: normal; }
   .jc-Comment-anchor:visited {
     color: inherit; }
-
-.jc-Message {
-  margin-bottom: 1rem;
-  border-radius: var(--border-radius);
-  padding: .75rem 1rem;
-  color: white; }
-  .jc-Message p {
-    margin: 0; }
-
-.jc-Message--error {
-  background: var(--jc-red); }
-
-.jc-Message--success {
-  background: var(--jc-green); }

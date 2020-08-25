@@ -33,7 +33,6 @@ exports.sourceNodes = async (
   try {
     let queryResult = await request({
       apiKey,
-      domain,
       query,
       variables: {
         domain,
