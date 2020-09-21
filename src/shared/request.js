@@ -1,8 +1,5 @@
-const endpoint = require("./endpoint")
-
 module.exports = async ({ apiKey, query, variables = {} } = {}) => {
-
-  const response = await fetch(endpoint(), {
+  const response = await fetch("https://service.jamcomments.com/graphql", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -1,10 +1,10 @@
 # gatsby-plugin-jam-comments
 
-The official Gatsby plugin for integrating [Jam Comments](https://jamcomments.com) into your Gatsby application.
+The official Gatsby plugin for integrating [JamComments](https://jamcomments.com) into your Gatsby application.
 
 ## Setup
 
-1. Create a Jam Comments account.
+1. Create a JamComments account.
 2. Create a site and generate an API key.
 3. Install this plugin: `npm install gatsby-plugin-jam-comments`. 
 4. Configure the plugin by adding the following to your `gatsby-node.js`: 
