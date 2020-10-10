@@ -3,20 +3,28 @@ import Message from "../Message"
 import "./styles.scss"
 import request from "../../shared/request"
 import formInputsToValues from "../../utils/formInputsToValues"
+import LoadingDots from "../../assets/loading-dots.svg";
+import useIsMounted from "../../utils/useIsMounted";
 
 const apiKey = process.env.GATSBY_JAM_COMMENTS_API_KEY
 const domain = process.env.GATSBY_JAM_COMMENTS_DOMAIN
 
+const getCurrentTime = () => (new Date()).getTime();
+const minimumSubmissionTime = 1000;
+
 export default ({ newComment }) => {
+  const isMounted = useIsMounted();
   const formRef = useRef(null)
-  const [formSuccessMessage, setFormSuccess] = useState("")
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formErrorMessage, setFormError] = useState("")
-  const [shouldShowFullForm, setShouldShowFullForm] = useState(false)
+  const [shouldShowFullForm, setShouldShowFullForm] = useState(false);
 
   const submitComment = async e => {
+    const startTime = getCurrentTime();
+
     e.preventDefault()
     setFormError("")
-    setFormSuccess("")
+    setIsSubmitting(true);
 
     let mutationParams = formInputsToValues(formRef.current)
 
@@ -24,25 +32,27 @@ export default ({ newComment }) => {
 
     const query = `
       mutation CreateComment(
-        $name: String!, 
-        $path: String!, 
-        $content: String!, 
+        $name: String!,
+        $path: String!,
+        $content: String!,
         $domain: String!,
         $emailAddress: String
       ){
         createComment(
-          name: $name, 
-          path: $path, 
-          content: $content, 
+          name: $name,
+          path: $path,
+          content: $content,
           emailAddress: $emailAddress
           domain: $domain
         ) {
-          domain
           createdAt
           name
           emailAddress
           content
           id
+          site {
+            domain
+          }
         }
       }
     `
@@ -57,64 +67,87 @@ export default ({ newComment }) => {
       path: window.location.pathname
     }
 
+    let response;
+
     try {
-      let response = await request({ apiKey, query, variables })
+      response = await request({ apiKey, query, variables })
 
       if (response?.errors && response.errors.length) {
-        console.log(response.errors[0].message)
+        console.log(response.errors[0].message);
         setFormError("Sorry, something went wrong!")
-        return;
+        return
       }
-  
-      if (response?.data?.createComment) {
-        setFormSuccess("Comment successfully submitted!")
-        return newComment(response.data.createComment);
-      }
-    } catch(e) {
+    } catch (e) {
       setFormError("Sorry, something went wrong!")
+      setIsSubmitting(false);
+    } finally {
+      const remaining = minimumSubmissionTime - (getCurrentTime() - startTime);
+      const delay = remaining > 0 ? remaining : 0;
+
+      setTimeout(() => {
+        if(!isMounted.current) return;
+
+        setIsSubmitting(false);
+
+        if (response?.data?.createComment) {
+          newComment(response.data.createComment)
+        }
+      }, delay);
     }
   }
 
   return (
-    <div className={"jc-CommentBox"}>
-      {formSuccessMessage && (
-        <Message isSuccessful={true}>{formSuccessMessage}</Message>
-      )}
+    <div className="jc-CommentBox">
 
-      {formErrorMessage && <Message>{formErrorMessage}</Message>}
+      { isSubmitting &&
+        <div className="jc-CommentBox-loadingDots">
+          <LoadingDots />
+        </div>
+      }
 
-      <h3>Leave a Comment</h3>
+      <div className={`jc-CommentBox-inputs ${isSubmitting ? 'is-submitting' : ''}`}>
 
-      <form
-        onSubmit={submitComment}
-        ref={formRef}
-        className={"jc-CommentBox-form"}
-      >
-        <label className={"jc-CommentBox-label jc-CommentBox-textarea"}>
-          <textarea 
-            name="content"
-            required={true}
-            onFocus={() => !shouldShowFullForm && setShouldShowFullForm(true)}></textarea>
-        </label>
+        <h3>Leave a Comment</h3>
 
-        {shouldShowFullForm && (
-          <>
-            <label className={"jc-CommentBox-label"}>
-              Name
-              <input type="text" name="name" required={true} />
-            </label>
+        {formErrorMessage && <Message>{formErrorMessage}</Message>}
 
-            <label className={"jc-CommentBox-label"}>
-              Email Address
-              <input type="email" name="emailAddress" />
-            </label>
+        <form
+          onSubmit={submitComment}
+          ref={formRef}
+          className={"jc-CommentBox-form"}
+        >
+          <label className={"jc-CommentBox-label jc-CommentBox-textarea"}>
+            <textarea
+              name="content"
+              required={true}
+              onFocus={() => !shouldShowFullForm && setShouldShowFullForm(true)}
+            ></textarea>
 
-            <span className={"jc-CommentBox-buttonWrapper"}>
-              <button className={"jc-CommentBox-button"}>Submit</button>
-            </span>
-          </>
-        )}
-      </form>
+            <small className="jc-CommentBox-attribution">
+              Powered by <a tabIndex="-1" href="https://jamcomments.com" rel="noreferrer noopener" target="_blank">JamComments</a>
+            </small>
+
+          </label>
+
+          {shouldShowFullForm && (
+            <>
+              <label className={"jc-CommentBox-label"}>
+                Name
+                <input type="text" name="name" required={true} />
+              </label>
+
+              <label className={"jc-CommentBox-label"}>
+                Email Address
+                <input type="email" name="emailAddress" />
+              </label>
+
+              <span className={"jc-CommentBox-buttonWrapper"}>
+                <button className={"jc-CommentBox-button"}>Submit</button>
+              </span>
+            </>
+          )}
+        </form>
+      </div>
     </div>
   )
 }

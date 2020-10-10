@@ -4,32 +4,54 @@
   --jc-gray: #dfdede;
   --jc-gray-dark: #5c5c5c;
   --border-radius: 5px;
+  --jc-loading: var(--jc-gray);
   margin: 2rem 0; }
 
-.jc-CommentBox-form {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: 1rem;
-  margin-bottom: 30px; }
-  @media screen and (min-width: 900px) {
-    .jc-CommentBox-form {
-      grid-template-columns: 1fr 1fr; } }
-
-.jc-CommentBox input, .jc-CommentBox textarea {
-  border: 2px solid var(--jc-gray);
-  border-radius: var(--border-radius); }
-
-.jc-CommentBox-textarea, .jc-CommentBox-buttonWrapper {
-  grid-column: 1 / -1; }
-
-.jc-CommentBox-buttonWrapper {
-  margin-top: 1.5rem; }
-
-.jc-CommentBox-label {
-  display: flex;
-  flex-direction: column; }
-  .jc-CommentBox-label input, .jc-CommentBox-label textarea {
-    margin-top: 3px; }
+.jc-CommentBox {
+  position: relative; }
+  .jc-CommentBox-loadingDots {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%); }
+    .jc-CommentBox-loadingDots svg {
+      fill: var(--jc-loading); }
+  .jc-CommentBox-attribution {
+    opacity: .5;
+    text-align: right;
+    padding-top: 5px;
+    font-size: .65em; }
+    .jc-CommentBox-attribution a {
+      text-decoration: none;
+      color: inherit; }
+  .jc-CommentBox-inputs.is-submitting {
+    opacity: .15;
+    pointer-events: none; }
+  .jc-CommentBox-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1rem;
+    margin-bottom: 30px; }
+    @media screen and (min-width: 900px) {
+      .jc-CommentBox-form {
+        grid-template-columns: 1fr 1fr; } }
+  .jc-CommentBox input,
+  .jc-CommentBox textarea {
+    border: 2px solid var(--jc-gray);
+    border-radius: var(--border-radius);
+    padding: 8px; }
+  .jc-CommentBox textarea {
+    min-height: 100px; }
+  .jc-CommentBox-textarea, .jc-CommentBox-buttonWrapper {
+    grid-column: 1 / -1; }
+  .jc-CommentBox-buttonWrapper {
+    margin-top: 1.5rem; }
+  .jc-CommentBox-label {
+    display: flex;
+    flex-direction: column; }
+    .jc-CommentBox-label input,
+    .jc-CommentBox-label textarea {
+      margin-top: 3px; }
 
 .jc-CommentList {
   overflow: hidden; }
@@ -74,6 +96,20 @@
     .jc-CommentList-item:last-child {
       margin-top: 0; }
 
+.jc-Message {
+  margin-bottom: 1rem;
+  border-radius: var(--border-radius);
+  padding: .75rem 1rem;
+  color: white; }
+  .jc-Message p {
+    margin: 0; }
+
+.jc-Message--error {
+  background: var(--jc-red); }
+
+.jc-Message--success {
+  background: var(--jc-green); }
+
 .jc-Comment * {
   font: inherit; }
 
@@ -82,6 +118,9 @@
   align-items: center;
   color: var(--jc-gray-dark);
   margin-bottom: 15px; }
+
+.jc-Comment-content {
+  padding-bottom: 12px; }
 
 .jc-Comment-name {
   margin: 0;
@@ -101,17 +140,3 @@
   font-weight: normal; }
   .jc-Comment-anchor:visited {
     color: inherit; }
-
-.jc-Message {
-  margin-bottom: 1rem;
-  border-radius: var(--border-radius);
-  padding: .75rem 1rem;
-  color: white; }
-  .jc-Message p {
-    margin: 0; }
-
-.jc-Message--error {
-  background: var(--jc-red); }
-
-.jc-Message--success {
-  background: var(--jc-green); }

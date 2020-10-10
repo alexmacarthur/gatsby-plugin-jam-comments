@@ -1,7 +1,6 @@
 @import "../../shared.scss";
 
 .jc-Comment {
-
     * {
         font: inherit;
     }
@@ -11,6 +10,10 @@
         align-items: center;
         color: var(--jc-gray-dark);
         margin-bottom: 15px;
+    }
+
+    &-content {
+      padding-bottom: 12px;
     }
 
     &-name {
