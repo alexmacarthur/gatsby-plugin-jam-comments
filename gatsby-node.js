@@ -1,55 +1,28 @@
-require("isomorphic-fetch")
+require("isomorphic-fetch");
 require("dotenv").config({
-  path: `.env.${process.env.NODE_ENV}`
-})
+  path: `.env.${process.env.NODE_ENV}`,
+});
 
-const request = require("./src/shared/request")
+const log = require("./src/shared/log");
+const recursivelyFetchComments = require("./src/shared/recursivelyFetchComments");
 
 exports.sourceNodes = async (
   { actions, cache, createContentDigest },
   configOptions
 ) => {
-  const { api_key: apiKey, domain } = configOptions
-  const { createNode } = actions
+  const { api_key: apiKey, domain } = configOptions;
+  const { createNode } = actions;
 
-  process.env.GATSBY_JAM_COMMENTS_API_KEY = apiKey
-  process.env.GATSBY_JAM_COMMENTS_DOMAIN = domain
+  // Needed for client-side code.
+  process.env.GATSBY_JAM_COMMENTS_API_KEY = apiKey;
+  process.env.GATSBY_JAM_COMMENTS_DOMAIN = domain;
 
-  console.log("Pulling all comments...")
+  const comments = await recursivelyFetchComments({
+    apiKey,
+    domain,
+  });
 
-  const query = `
-                query Comments($domain: String!, $status: String){
-                    comments(domain: $domain, status: $status) {
-                        createdAt
-                        name
-                        emailAddress
-                        content
-                        path
-                        id
-                    }
-                }`
-  let comments = []
-
-  try {
-    let queryResult = await request({
-      apiKey,
-      query,
-      variables: {
-        domain,
-        status: "approved"
-      }
-    })
-
-    if (queryResult.errors) {
-      throw new Error(queryResult.errors[0].message)
-    }
-
-    comments = queryResult.data.comments
-  } catch (e) {
-    console.error(`Jam Comments error! ${e.message}`)
-  }
-
-  console.log(`Found ${comments.length} comments...`);
+  log(`Fetched a total of ${comments.length} comments.`);
 
   for (let comment of comments) {
     const nodeData = Object.assign(
@@ -61,16 +34,16 @@ exports.sourceNodes = async (
         internal: {
           type: `JamComment`,
           mediaType: "text/plain",
-          contentDigest: createContentDigest(comment.content)
-        }
+          contentDigest: createContentDigest(comment.content),
+        },
       }
-    )
+    );
 
-    createNode(nodeData)
+    createNode(nodeData);
   }
 
-  await cache.set("jamComments", comments)
-}
+  await cache.set("jamComments", comments);
+};
 
 /**
  * When each page is created, attach any of its comments to page context.
@@ -80,10 +53,10 @@ exports.onCreatePage = async ({ page, actions, cache }) => {
   const cachedComments = await cache.get("jamComments");
 
   const comments = cachedComments
-    ? cachedComments.filter(c => {
+    ? cachedComments.filter((c) => {
         return c.path === page.path;
       })
-    : []
+    : [];
 
   if (!comments.length) {
     return;
@@ -95,7 +68,7 @@ exports.onCreatePage = async ({ page, actions, cache }) => {
     ...page,
     context: {
       ...page.context,
-      comments
-    }
+      comments,
+    },
   });
-}
+};

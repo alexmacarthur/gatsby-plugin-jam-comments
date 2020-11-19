@@ -1,34 +1,34 @@
-import React, { useRef, useState } from "react"
-import Message from "../Message"
-import "./styles.scss"
-import request from "../../shared/request"
-import formInputsToValues from "../../utils/formInputsToValues"
+import React, { useRef, useState } from "react";
+import Message from "../Message";
+import "./styles.scss";
+import request from "../../shared/request";
+import formInputsToValues from "../../utils/formInputsToValues";
 import LoadingDots from "../../assets/loading-dots.svg";
 import useIsMounted from "../../utils/useIsMounted";
 
-const apiKey = process.env.GATSBY_JAM_COMMENTS_API_KEY
-const domain = process.env.GATSBY_JAM_COMMENTS_DOMAIN
+const apiKey = process.env.GATSBY_JAM_COMMENTS_API_KEY;
+const domain = process.env.GATSBY_JAM_COMMENTS_DOMAIN;
 
-const getCurrentTime = () => (new Date()).getTime();
+const getCurrentTime = () => new Date().getTime();
 const minimumSubmissionTime = 1000;
 
 export default ({ newComment }) => {
   const isMounted = useIsMounted();
-  const formRef = useRef(null)
+  const formRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formErrorMessage, setFormError] = useState("")
+  const [formErrorMessage, setFormError] = useState("");
   const [shouldShowFullForm, setShouldShowFullForm] = useState(false);
 
-  const submitComment = async e => {
+  const submitComment = async (e) => {
     const startTime = getCurrentTime();
 
-    e.preventDefault()
-    setFormError("")
+    e.preventDefault();
+    setFormError("");
     setIsSubmitting(true);
 
-    let mutationParams = formInputsToValues(formRef.current)
+    let mutationParams = formInputsToValues(formRef.current);
 
-    formRef.current.reset()
+    formRef.current.reset();
 
     const query = `
       mutation CreateComment(
@@ -55,58 +55,60 @@ export default ({ newComment }) => {
           }
         }
       }
-    `
+    `;
 
-    const { name, content, emailAddress } = mutationParams
+    const { name, content, emailAddress } = mutationParams;
 
     const variables = {
       name,
       domain,
       content,
       emailAddress,
-      path: window.location.pathname
-    }
+      path: window.location.pathname,
+    };
 
     let response;
 
     try {
-      response = await request({ apiKey, query, variables })
+      response = await request({ apiKey, query, variables });
 
-      if (response?.errors && response.errors.length) {
+      if (response?.errors?.length) {
         console.log(response.errors[0].message);
-        setFormError("Sorry, something went wrong!")
-        return
+        setFormError("Sorry, something went wrong!");
+        return;
       }
     } catch (e) {
-      setFormError("Sorry, something went wrong!")
+      setFormError("Sorry, something went wrong!");
       setIsSubmitting(false);
     } finally {
       const remaining = minimumSubmissionTime - (getCurrentTime() - startTime);
       const delay = remaining > 0 ? remaining : 0;
 
       setTimeout(() => {
-        if(!isMounted.current) return;
+        if (!isMounted.current) return;
 
         setIsSubmitting(false);
 
         if (response?.data?.createComment) {
-          newComment(response.data.createComment)
+          newComment(response.data.createComment);
         }
       }, delay);
     }
-  }
+  };
 
   return (
     <div className="jc-CommentBox">
-
-      { isSubmitting &&
+      {isSubmitting && (
         <div className="jc-CommentBox-loadingDots">
           <LoadingDots />
         </div>
-      }
+      )}
 
-      <div className={`jc-CommentBox-inputs ${isSubmitting ? 'is-submitting' : ''}`}>
-
+      <div
+        className={`jc-CommentBox-inputs ${
+          isSubmitting ? "is-submitting" : ""
+        }`}
+      >
         <h3>Leave a Comment</h3>
 
         {formErrorMessage && <Message>{formErrorMessage}</Message>}
@@ -124,9 +126,16 @@ export default ({ newComment }) => {
             ></textarea>
 
             <small className="jc-CommentBox-attribution">
-              Powered by <a tabIndex="-1" href="https://jamcomments.com" rel="noreferrer noopener" target="_blank">JamComments</a>
+              Powered by{" "}
+              <a
+                tabIndex="-1"
+                href="https://jamcomments.com"
+                rel="noreferrer noopener"
+                target="_blank"
+              >
+                JamComments
+              </a>
             </small>
-
           </label>
 
           {shouldShowFullForm && (
@@ -149,5 +158,5 @@ export default ({ newComment }) => {
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
