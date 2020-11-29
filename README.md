@@ -1,3 +1,5 @@
+> :warning: JamComments is still in active development, and has not yet been opened to the public. To be notified when it's available, sign up here: [jamcomments.com](https://jamcomments.com/).
+
 # gatsby-plugin-jam-comments
 
 The official Gatsby plugin for integrating [JamComments](https://jamcomments.com) into your Gatsby application.
