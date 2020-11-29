@@ -24,14 +24,23 @@ resolve: 'gatsby-plugin-jam-comments',
 
 ### Embedding Comments
 
-To include a comment form and existing comments on your blog posts, you'll need to place the following component on your page component(s), along with the required `path` and `pageContext` props:
+To include a comment form and existing comments on your blog posts, you'll need to place the `<JamComments />` component on your page component(s), along with the required `path` and `pageContext` props:
 
 ```jsx
+import React from "react";
 import JamComments from "gatsby-plugin-jam-comments";
 
-// your comment code
-
-<JamComments path={props.path} pageContext={props.pageContext} />;
+const MyPost = (props) => {
+  return (
+    <article>
+      <h1>{props.title}</h1>
+      <div>{props.content}</div>
+      <JamComments path={props.path} pageContext={props.pageContext} />
+    </article>
+  );
+};
+  
+export default MyPost;
 ```
 
 ### Querying for Data
