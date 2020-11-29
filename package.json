@@ -1,6 +1,6 @@
 {
   "name": "gatsby-plugin-jam-comments",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "author": "Alex MacArthur <alex@macarthur.me> (https://macarthur.me)",
   "license": "MIT",
   "description": "The Gatsby plugin for Jam Comments.",
@@ -10,7 +10,7 @@
     "watch": "NODE_ENV=development npx rollup -c -w",
     "build": "NODE_ENV=production npx rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint --fix **/*.js",
+    "lint": "eslint --fix ./src/**/*.js",
     "prettier": "prettier --write \"**/*.{md,js}\""
   },
   "repository": {
@@ -54,6 +54,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
+    "@babel/eslint-parser": "^7.12.1",
     "@babel/preset-env": "^7.9.5",
     "@babel/preset-react": "^7.9.4",
     "@rollup/plugin-commonjs": "^11.1.0",

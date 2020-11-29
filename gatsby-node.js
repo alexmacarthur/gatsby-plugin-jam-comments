@@ -1,6 +1,6 @@
 require("isomorphic-fetch");
 require("dotenv").config({
-  path: `.env.${process.env.NODE_ENV}`,
+  path: `.env.${process.env.NODE_ENV}`
 });
 
 const log = require("./src/shared/log");
@@ -19,7 +19,7 @@ exports.sourceNodes = async (
 
   const comments = await recursivelyFetchComments({
     apiKey,
-    domain,
+    domain
   });
 
   log(`Fetched a total of ${comments.length} comments.`);
@@ -34,8 +34,8 @@ exports.sourceNodes = async (
         internal: {
           type: `JamComment`,
           mediaType: "text/plain",
-          contentDigest: createContentDigest(comment.content),
-        },
+          contentDigest: createContentDigest(comment.content)
+        }
       }
     );
 
@@ -53,7 +53,7 @@ exports.onCreatePage = async ({ page, actions, cache }) => {
   const cachedComments = await cache.get("jamComments");
 
   const comments = cachedComments
-    ? cachedComments.filter((c) => {
+    ? cachedComments.filter(c => {
         return c.path === page.path;
       })
     : [];
@@ -68,7 +68,7 @@ exports.onCreatePage = async ({ page, actions, cache }) => {
     ...page,
     context: {
       ...page.context,
-      comments,
-    },
+      comments
+    }
   });
 };

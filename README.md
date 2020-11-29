@@ -29,7 +29,7 @@ import JamComments from "gatsby-plugin-jam-comments";
 
 // your comment code
 
-<JamComments path={props.path} pageContext={props.pageContext} />
+<JamComments path={props.path} pageContext={props.pageContext} />;
 ```
 
 ### Querying for Data

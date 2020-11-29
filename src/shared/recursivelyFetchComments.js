@@ -40,8 +40,8 @@ const fetchComments = async ({ apiKey, domain, skip = 0 }) => {
         domain,
         status: "approved",
         perPage: PER_PAGE,
-        skip,
-      },
+        skip
+      }
     });
 
     if (queryResult.errors) {
@@ -60,7 +60,7 @@ const fetchComments = async ({ apiKey, domain, skip = 0 }) => {
 
   return {
     comments,
-    hasMore,
+    hasMore
   };
 };
 

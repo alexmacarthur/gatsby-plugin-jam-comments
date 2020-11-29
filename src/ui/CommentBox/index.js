@@ -19,7 +19,7 @@ export default ({ newComment }) => {
   const [formErrorMessage, setFormError] = useState("");
   const [shouldShowFullForm, setShouldShowFullForm] = useState(false);
 
-  const submitComment = async (e) => {
+  const submitComment = async e => {
     const startTime = getCurrentTime();
 
     e.preventDefault();
@@ -64,7 +64,7 @@ export default ({ newComment }) => {
       domain,
       content,
       emailAddress,
-      path: window.location.pathname,
+      path: window.location.pathname
     };
 
     let response;

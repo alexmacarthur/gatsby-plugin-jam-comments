@@ -1,9 +1,9 @@
-import React, { useMemo } from "react"
-import { toPrettyDate, toIsoString } from "../../utils/formatDate"
-import "./styles.scss"
+import React, { useMemo } from "react";
+import { toPrettyDate, toIsoString } from "../../utils/formatDate";
+import "./styles.scss";
 
 export default ({ comment }) => {
-  comment.content = useMemo(() => comment.content.replace(/\n/g, "<br>\n"), [])
+  comment.content = useMemo(() => comment.content.replace(/\n/g, "<br>\n"), []);
 
   return (
     <div className={"jc-Comment"}>
@@ -27,5 +27,5 @@ export default ({ comment }) => {
         <p dangerouslySetInnerHTML={{ __html: comment.content }} />
       </div>
     </div>
-  )
-}
+  );
+};
