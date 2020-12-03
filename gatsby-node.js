@@ -3,8 +3,11 @@ require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`
 });
 
-const log = require("./src/shared/log");
-const recursivelyFetchComments = require("./src/shared/recursivelyFetchComments");
+const { log } = require("jam-comments-utilities/shared");
+const {
+  CommentFetcher,
+  utilities: { filterByUrl }
+} = require("jam-comments-utilities/server");
 
 exports.sourceNodes = async (
   { actions, cache, createContentDigest },
@@ -17,10 +20,8 @@ exports.sourceNodes = async (
   process.env.GATSBY_JAM_COMMENTS_API_KEY = apiKey;
   process.env.GATSBY_JAM_COMMENTS_DOMAIN = domain;
 
-  const comments = await recursivelyFetchComments({
-    apiKey,
-    domain
-  });
+  const fetcher = new CommentFetcher({ domain, apiKey });
+  const comments = await fetcher.getAllComments();
 
   log(`Fetched a total of ${comments.length} comments.`);
 
@@ -51,12 +52,7 @@ exports.sourceNodes = async (
 exports.onCreatePage = async ({ page, actions, cache }) => {
   const { createPage, deletePage } = actions;
   const cachedComments = await cache.get("jamComments");
-
-  const comments = cachedComments
-    ? cachedComments.filter(c => {
-        return c.path === page.path;
-      })
-    : [];
+  const comments = cachedComments ? filterByUrl(cachedComments, page.path) : [];
 
   if (!comments.length) {
     return;

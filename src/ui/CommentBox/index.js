@@ -1,12 +1,11 @@
 import React, { useRef, useState } from "react";
 import Message from "../Message";
 import "./styles.scss";
-import request from "../../shared/request";
 import formInputsToValues from "../../utils/formInputsToValues";
 import LoadingDots from "../../assets/loading-dots.svg";
 import useIsMounted from "../../utils/useIsMounted";
+import client from "./questClient";
 
-const apiKey = process.env.GATSBY_JAM_COMMENTS_API_KEY;
 const domain = process.env.GATSBY_JAM_COMMENTS_DOMAIN;
 
 const getCurrentTime = () => new Date().getTime();
@@ -70,7 +69,7 @@ export default ({ newComment }) => {
     let response;
 
     try {
-      response = await request({ apiKey, query, variables });
+      response = await client.send(query, variables);
 
       if (response?.errors?.length) {
         console.log(response.errors[0].message);

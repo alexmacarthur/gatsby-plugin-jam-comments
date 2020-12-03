@@ -4,8 +4,6 @@ import CommentList from "../CommentList";
 import "./styles.scss";
 
 export default ({ pageContext }) => {
-  console.log(pageContext);
-
   const initialComments =
     pageContext && pageContext.comments ? pageContext.comments : [];
 

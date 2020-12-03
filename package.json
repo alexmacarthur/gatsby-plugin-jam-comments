@@ -1,13 +1,13 @@
 {
   "name": "gatsby-plugin-jam-comments",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "author": "Alex MacArthur <alex@macarthur.me> (https://macarthur.me)",
-  "license": "MIT",
+  "license": "GPL-2.0",
   "description": "The Gatsby plugin for Jam Comments.",
   "main": "gatsby-node.js",
   "module": "dist/jam-comments.min.js",
   "scripts": {
-    "watch": "NODE_ENV=development npx rollup -c -w",
+    "watch": "NODE_ENV=development JAM_COMMENTS_SERVICE_ENDPOINT=http://localhost:4000 npx rollup -c -w",
     "build": "NODE_ENV=production npx rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --fix ./src/**/*.js",
@@ -35,11 +35,13 @@
   "bugs": {
     "url": "https://github.com/alexmacarthur/gatsby-plugin-jam-comments/issues"
   },
-  "homepage": "https://github.com/alexmacarthur/gatsby-plugin-jam-comments#readme",
+  "homepage": "https://jamcomments.com",
   "dependencies": {
     "chalk": "^4.1.0",
+    "graphql-quest": "^1.0.2",
     "graphql-request": "^3.3.0",
-    "isomorphic-fetch": "^3.0.0"
+    "isomorphic-fetch": "^3.0.0",
+    "jam-comments-utilities": "0.0.7"
   },
   "husky": {
     "hooks": {
