@@ -5,7 +5,7 @@ import commonjs from "@rollup/plugin-commonjs";
 import postcss from "rollup-plugin-postcss";
 import scss from "rollup-plugin-scss";
 import { terser } from "rollup-plugin-terser";
-import resolve from "@rollup/plugin-node-resolve";
+import { nodeResolve } from "@rollup/plugin-node-resolve";
 import reactSvg from "rollup-plugin-react-svg";
 
 const isProduction = process.env.NODE_ENV === "production";
@@ -34,7 +34,7 @@ const OUTPUT_DATA = [
 
 let plugins = [
   scss(),
-  resolve(),
+  nodeResolve(),
   commonjs({
     // include: 'node_modules/**'
     exclude: "src/ui/**"

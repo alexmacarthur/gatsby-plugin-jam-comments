@@ -1,9 +1,8 @@
-require("isomorphic-fetch");
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`
 });
 
-const { log } = require("jam-comments-utilities/shared");
+const log = require("jam-comments-utilities/shared/log");
 const {
   CommentFetcher,
   utilities: { filterByUrl }
